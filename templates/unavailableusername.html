@@ -1,0 +1,6 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Unavailable username{% endblock %}</h1>
+{% endblock %} {% block content %}
+<p>Username {{ username }} is unavailable. Try another one.</p>
+<p>Back to <a href="/register">Register</a></p>
+{% endblock %}

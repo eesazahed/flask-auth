@@ -1,0 +1,6 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}User does not exist{% endblock %}</h1>
+{% endblock %} {% block content %}
+<p>The user with the username {{ username }} does not exist.</p>
+<p>Back to <a href="/login">Login</a></p>
+{% endblock %}

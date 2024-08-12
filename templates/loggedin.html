@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block header %}
+<h1>{% block title %}Logged in!{% endblock %}</h1>
+{% endblock %} {% block content %}
+<p>Successfully logged in as {{ username }}</p>
+<p>Go to <a href="/dashboard">Dashboard</a></p>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const jwt = "{{ jwt }}";
+    document.cookie = "jwt=" + jwt;
+  });
+</script>
+{% endblock %}

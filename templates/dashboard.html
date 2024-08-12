@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block header %}
+<h1>{% block title %}Dashboard{% endblock %}</h1>
+{% endblock %} {% block content %}
+<p>Logged in as {{ username }}</p>
+<button onclick="">Logout</button>
+<script>
+  const deleteCookie = (name) => {
+    // Set the cookie expiration date to a past date
+    document.cookie =
+      name +
+      "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; secure; httponly";
+  };
+</script>
+{% endblock %}
