@@ -6,10 +6,18 @@
 <p>Just try <a href="https://laser.vercel.app/">LaserSocial</a> instead.</p>
 <br />
 <button onclick="logout();">Logout</button>
+<br /><br />
+<button onclick="deleteAccount();">Delete my account</button>
+
 <script>
   const logout = () => {
     document.cookie = "jwt=;";
     window.location.href = "/login";
+  };
+
+  const deleteAccount = async () => {
+    await fetch("/deleteaccount", { method: "POST" });
+    logout();
   };
 </script>
 
