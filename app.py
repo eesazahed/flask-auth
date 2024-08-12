@@ -2,8 +2,10 @@ from cs50 import SQL
 from flask import Flask, render_template, request, redirect
 import jwt
 import os
+from dotenv import load_dotenv
 
-secret = os.environ["secret"]
+load_dotenv()
+secret = os.getenv("SECRET")
 
 db = SQL("sqlite:///database.db")
 db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)")
@@ -33,6 +35,15 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    token = request.cookies.get("jwt")
+    
+    if token:
+        try:
+            jwt.decode(token, secret, algorithms=["HS256"])
+            return redirect("/dashboard")
+        except:
+            print("Invalid token")
+
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -48,6 +59,15 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    token = request.cookies.get("jwt")
+    
+    if token:
+        try:
+            jwt.decode(token, secret, algorithms=["HS256"])
+            return redirect("/dashboard")
+        except:
+            print("Invalid token")
+
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -58,6 +78,8 @@ def login():
         if checkUsernameAndPassword(username, password) == False:
             return render_template("incorrectlogininfo.html") 
 
+
+        print("GENERATING JWT")
         encoded_jwt = jwt.encode({ "username": username}, secret, algorithm="HS256")
 
         return render_template("loggedin.html", username=username, jwt=encoded_jwt)
@@ -72,19 +94,10 @@ def dashboard():
     if token:
         try:
             data = jwt.decode(token, secret, algorithms=["HS256"])
-            return render_template("dashboard.html", username=data.username) 
-        except jwt.ExpiredSignatureError:
-            return "Token has expired", 401
-        except jwt.InvalidTokenError:
-            return "Invalid token", 401
+            return render_template("dashboard.html", username=data['username']) 
+        except:
+            return redirect("/login")
     return redirect("/login")
-
-
-@app.route("/getusers")
-def getusers():
-    users = db.execute("SELECT DISTINCT username FROM users")
-
-    return { "data": users }
 
 
 if __name__ == "__main__":

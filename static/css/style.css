@@ -1,3 +1,41 @@
 body {
   margin: 2rem;
 }
+
+form {
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid;
+  border-radius: 1rem;
+}
+
+form input {
+  margin: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: aliceblue;
+}
+
+form input[type="submit"],
+button {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: #587be3;
+  color: white;
+  transition: 0.5s;
+}
+
+form input[type="submit"]:hover,
+button:hover {
+  background-color: #3c64dd;
+}
+
+form label {
+  margin-left: 1rem;
+}

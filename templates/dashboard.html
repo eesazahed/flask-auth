@@ -2,13 +2,15 @@
 <h1>{% block title %}Dashboard{% endblock %}</h1>
 {% endblock %} {% block content %}
 <p>Logged in as {{ username }}</p>
-<button onclick="">Logout</button>
+<p>This site doesn't have much going on.</p>
+<p>Just try <a href="https://laser.vercel.app/">LaserSocial</a> instead.</p>
+<br />
+<button onclick="logout();">Logout</button>
 <script>
-  const deleteCookie = (name) => {
-    // Set the cookie expiration date to a past date
-    document.cookie =
-      name +
-      "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; secure; httponly";
+  const logout = () => {
+    document.cookie = "jwt=;";
+    window.location.href = "/login";
   };
 </script>
+
 {% endblock %}
