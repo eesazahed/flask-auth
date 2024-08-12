@@ -6,6 +6,15 @@ db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)")
 
 app = Flask(__name__)
 
+def checkIfUsernameExists(username):
+
+    user = db.execute(f"SELECT * FROM users WHERE username='{username}'")
+
+    if user:
+        return True
+    else:
+        return False
+
 
 @app.route("/")
 def index():
@@ -14,8 +23,13 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+        data = request.json
+        username = data.get("username")
+        password = data.get("password")
+
+        if checkIfUsernameExists(username):
+            print("it exists")
+            return { "message": f'Username "{username}" is unavailable' }
 
         db.execute("INSERT INTO users (username, password) VALUES(?, ?)", username, password)
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block header %}
 <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %} {% block content %}
-<form method="post" action="/register">
+<form method="post">
   <label for="username">Username</label>
   <input name="username" id="username" required />
   <br />
@@ -10,4 +10,23 @@
   <br />
   <input type="submit" value="Register" />
 </form>
+<script>
+  const form = document.forms[0];
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/register", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  };
+</script>
 {% endblock %}
