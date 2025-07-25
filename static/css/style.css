@@ -1,15 +1,17 @@
 body {
   margin: 2rem;
+  max-width: 600px;
+  margin: 4rem auto;
 }
 
 form {
+  background-color: white;
   width: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  border: 1px solid;
   border-radius: 1rem;
 }
 
@@ -17,7 +19,7 @@ form input {
   margin: 1rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  border: none;
+  border: 1px solid black;
   background-color: aliceblue;
 }
 
@@ -38,4 +40,11 @@ button:hover {
 
 form label {
   margin-left: 1rem;
+}
+
+.content {
+  background-color: #aade87;
+  min-height: 80vh;
+  padding: 4rem;
+  border-radius: 2rem;
 }
